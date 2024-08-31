@@ -1,10 +1,13 @@
-package com.example.test.demofun;
+package com.example.test.demofun.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.test.demofun.model.Users;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class UserController {
 
     @GetMapping()
-    public String getUsers() {
+    public List<Users> getUsers() {
         // ArrayList<String> cars = new ArrayList<String>();
         // cars.add("Volvo");
         // cars.add("BMW");
@@ -27,12 +30,23 @@ public class UserController {
         // String[] arr = { "Volvo", "BMW", "Ford", "Mazda" };
         // return arr;
 
-        List<String> userList = new ArrayList<>();
-        userList.add("user1");
-        userList.add("user2");
-        userList.add("user3");
-        userList.add("user4");
-        return userList.toString();
+        List<Users> users = new ArrayList<>();
+        Users user1 = new Users();
+        user1.setId(UUID.randomUUID());
+        user1.setName("Vedanta");
+        user1.setEmail("ved@gmail.com");
+        user1.setPhone("9442322342");
+
+        Users user2 = new Users();
+        user2.setId(UUID.randomUUID());
+        user2.setName("Raju");
+        user2.setEmail("raju@gmail.com");
+        user2.setPhone("23423423");
+
+        users.add(user1);
+        users.add(user2);
+        return users;
+
     }
 
     @PostMapping()
@@ -40,7 +54,7 @@ public class UserController {
         return "User created Successfully with Id" + entity;
     }
 
-    @PostMapping("/{userId}")
+    @GetMapping("/{userId}")
     public String getUserDetials(@PathVariable String userId) {
         return "user details for user " + userId;
     }
